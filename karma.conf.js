@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/marine-gps'),
+      dir: require('path').join(__dirname, './coverage/marine-geodesy'),
       subdir: '.',
       reporters: [
         { type: 'html' },

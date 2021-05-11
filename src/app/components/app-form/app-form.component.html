@@ -1,0 +1,58 @@
+<div id="application">
+  <div id="header" class="text-center">
+    <span class="h4">Програма за синхронизиране на GPS и ехолотни измервания</span>
+  </div>
+
+  <div *ngIf="successMessage && !errorMessage"
+       class="alert alert-success"
+       role="alert"
+       [innerHTML]="successMessage">
+  </div>
+
+  <div *ngIf="errorMessage"
+       class="alert alert-danger"
+       role="alert"
+       [innerHTML]="errorMessage">
+  </div>
+
+  <app-card header="Входни данни">
+    <app-input-data
+      fileTitle="Файл с координати *"
+      deltaTitle="Разлика в часовниците"
+      deltaPattern="{{PATTERN_COORDINATES_CLOCK_DELTA}}"
+      deltaPlaceholder="hh:mm:ss"
+      deltaDefaultValue="7:50:21"
+      (inputDataChange)="inputDataChange($event, 'coordinates')">
+    </app-input-data>
+
+    <app-input-data
+      fileTitle="Файл с дълбочини *"
+      deltaTitle="Височина на антената"
+      deltaPattern="{{PATTERN_DEPTHS_HEIGHT_DELTA}}"
+      deltaPlaceholder="m.cm"
+      deltaDefaultValue="1.20"
+      (inputDataChange)="inputDataChange($event, 'depths')">
+    </app-input-data>
+  </app-card>
+
+  <app-card header="Изходни данни">
+    <app-output-data
+      filenameTitle="Име на файла с резултати *"
+      filenameDefaultValue="output.csv"
+      (outputDataChange)="outputDataChange($event)">
+    </app-output-data>
+  </app-card>
+
+  <div id="buttons">
+    <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="validateAndProcessData()">
+      <span class="sr-only"> Пресметни </span>
+    </button>
+    <button *ngIf="!isLoading" type="button" class="btn btn-warning" (click)="reloadCurrentPage()">
+      <span class="sr-only"> Изчистване </span>
+    </button>
+    <button *ngIf="isLoading" class="btn btn-info" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="sr-only"> Зареждане... </span>
+    </button>
+  </div>
+</div>

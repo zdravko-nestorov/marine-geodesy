@@ -1,0 +1,13 @@
+div.file-output-wrapper {
+  margin: 1rem;
+}
+
+label {
+  font-size: 0.8rem;
+}
+
+input {
+  border: 0.1rem solid #000;
+  font-size: 0.8rem;
+  margin-left: -1.3rem;
+}

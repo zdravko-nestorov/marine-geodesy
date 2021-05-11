@@ -1,13 +1,11 @@
 {
-  "name": "marine-gps",
-  "version": "0.0.0",
+  "name": "marine-geodesy",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -19,8 +17,12 @@
     "@angular/platform-browser": "~11.2.13",
     "@angular/platform-browser-dynamic": "~11.2.13",
     "@angular/router": "~11.2.13",
+    "@types/file-saver": "^2.0.2",
+    "bootstrap": "^5.0.0",
+    "file-saver": "^2.0.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "uuid": "^3.4.0",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
