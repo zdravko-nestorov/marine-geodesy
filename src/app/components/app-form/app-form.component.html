@@ -9,6 +9,12 @@
        [innerHTML]="successMessage">
   </div>
 
+  <div *ngIf="warningMessage && !errorMessage"
+       class="alert alert-warning"
+       role="alert"
+       [innerHTML]="warningMessage">
+  </div>
+
   <div *ngIf="errorMessage"
        class="alert alert-danger"
        role="alert"
@@ -21,7 +27,7 @@
       deltaTitle="Разлика в часовниците"
       deltaPattern="{{PATTERN_COORDINATES_CLOCK_DELTA}}"
       deltaPlaceholder="hh:mm:ss"
-      deltaDefaultValue=""
+      deltaDefaultValue="7:50:21"
       (inputDataChange)="inputDataChange($event, 'coordinates')">
     </app-input-data>
 
@@ -30,7 +36,7 @@
       deltaTitle="Височина на антената"
       deltaPattern="{{PATTERN_DEPTHS_HEIGHT_DELTA}}"
       deltaPlaceholder="m.cm"
-      deltaDefaultValue=""
+      deltaDefaultValue="1.20"
       (inputDataChange)="inputDataChange($event, 'depths')">
     </app-input-data>
   </app-card>

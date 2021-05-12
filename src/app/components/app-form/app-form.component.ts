@@ -22,6 +22,10 @@ export class AppFormComponent implements OnInit {
     return this.geodesyCalculatorService.successMessage;
   }
 
+  get warningMessage(): string {
+    return this.geodesyCalculatorService.warningMessage;
+  }
+
   get errorMessage(): string {
     return this.geodesyCalculatorService.errorMessage;
   }

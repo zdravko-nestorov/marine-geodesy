@@ -15,8 +15,9 @@ export class GeodesyCalculatorService {
   coordinatesFileProcessed: EventEmitter<void> = new EventEmitter<void>();
   depthsFileProcessed: EventEmitter<void> = new EventEmitter<void>();
 
-  errorMessage: string;
   successMessage: string;
+  warningMessage: string;
+  errorMessage: string;
   isLoading: boolean;
 
   private coordinatesData: InputData = new InputData();
@@ -53,27 +54,26 @@ export class GeodesyCalculatorService {
   calculateAndFinalizeData(): void {
     // In case of an error, do not make any calculations
     if (this.errorMessage) {
-      this.finalizeData();
+      this.finalizeCalculation();
       return;
     }
 
     // Try to calculate the final data
     try {
-      this.calculateOutputData();
-      this.saveOutputData();
-      this.successMessage = AppConstants.SUCCESS_CALCULATION;
+      this.calculateAndSaveOutputData();
     } catch (e) {
       this.errorMessage = AppConstants.ERROR_CALCULATION;
     } finally {
-      this.finalizeData();
+      this.finalizeCalculation();
     }
   }
 
-  private resetData(): void {
+  private resetData(isLoading: boolean = true): void {
     // User information
     this.successMessage = '';
+    this.warningMessage = '';
     this.errorMessage = '';
-    this.isLoading = true;
+    this.isLoading = isLoading;
 
     // Output data
     this.coordinatesArr = [];
@@ -212,6 +212,28 @@ export class GeodesyCalculatorService {
   /**
    * GEODESY CALCULATION
    */
+  private calculateAndSaveOutputData(): void {
+    this.calculateOutputData();
+
+    // Check if no matching coordinates and depths are found
+    if (!this.geodesyArr || !this.geodesyArr.length) {
+      this.warningMessage = AppConstants.NO_CALCULATION;
+      return;
+    }
+
+    // Save the output data
+    this.saveOutputData();
+
+    // Check if all coordinates has matching depths
+    if (this.geodesyArr.length === this.coordinatesArr.length) {
+      this.successMessage = AppConstants.SUCCESS_CALCULATION;
+      return;
+    }
+
+    // Some of the coordinates has no matching depths
+    this.successMessage = AppConstants.PARTIAL_CALCULATION;
+  }
+
   private calculateOutputData(): void {
     let count: any = 1;
     let firstDepthIndex: any = 0;
@@ -219,10 +241,13 @@ export class GeodesyCalculatorService {
     for (const coordinate of this.coordinatesArr) {
       // Find first matching depth index, based on the calculated time difference (calculated only once)
       firstDepthIndex = this.findFirstDepthIndex(firstDepthIndex, coordinate);
+      if (firstDepthIndex < 0) {
+        continue;
+      }
 
       // Once the index is found take every consequent item from coordinates and depths array
-      if (firstDepthIndex) {
-        const geodesy: Geodesy = this.mapToGeodesy(count++, coordinate, firstDepthIndex++);
+      const geodesy: Geodesy = this.mapToGeodesy(count++, coordinate, firstDepthIndex++);
+      if (geodesy) {
         this.geodesyArr.push(geodesy);
       }
     }
@@ -233,21 +258,24 @@ export class GeodesyCalculatorService {
   }
 
   private mapToGeodesy(count: number, coordinate: Coordinates, firstDepthIndex: number): Geodesy {
+    if (firstDepthIndex >= this.depthsArr.length) {
+      return null;
+    }
     const x: string = coordinate.x;
     const y: string = coordinate.y;
     const heightWithDelta: string = this.depthsArr[firstDepthIndex].heightWithDelta.toFixed(2);
     return new Geodesy(count, y, x, heightWithDelta);
   }
 
-  /**
-   * FINALIZE OUTPUT FILE
-   */
   private saveOutputData(): void {
     AppUtils.exportToCsv(this.geodesyData.filename, this.geodesyArr);
   }
 
-  private finalizeData(): void {
-    this.errorMessage = this.errorMessage && this.errorMessage.startsWith('<br/>') && this.errorMessage.substring(5);
+  /**
+   * FINALIZE CALCULATION
+   */
+  private finalizeCalculation(): void {
+    this.errorMessage = this.errorMessage && this.errorMessage.startsWith('<br/>') ? this.errorMessage.substring(5) : this.errorMessage;
     this.isLoading = false;
   }
 }

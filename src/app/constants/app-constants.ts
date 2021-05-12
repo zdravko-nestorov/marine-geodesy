@@ -24,5 +24,7 @@ export class AppConstants {
 
   // Calculation messages
   public static SUCCESS_CALCULATION = 'Пресмятането на изходните данни завърши успешно!';
+  public static PARTIAL_CALCULATION = 'Пресмятането на изходните данни завърши <b>С ЧАСТИЧНО ОТКРИТИ</b> съвпадащи координати и дълбочини!';
+  public static NO_CALCULATION = 'Пресмятането на изходните данни завърши <b>БЕЗ ОТКРИТИ</b> съвпадащи координати и дълбочини!';
   public static ERROR_CALCULATION = 'Изникна проблем при пресмятането на изходните данни!';
 }
