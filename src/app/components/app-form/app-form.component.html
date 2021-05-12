@@ -1,5 +1,5 @@
-<div id="application">
-  <div id="header" class="text-center">
+<div class="application">
+  <div class="header text-center">
     <span class="h4">Програма за синхронизиране на GPS и ехолотни измервания</span>
   </div>
 
@@ -21,6 +21,7 @@
       deltaTitle="Разлика в часовниците"
       deltaPattern="{{PATTERN_COORDINATES_CLOCK_DELTA}}"
       deltaPlaceholder="hh:mm:ss"
+      deltaDefaultValue=""
       (inputDataChange)="inputDataChange($event, 'coordinates')">
     </app-input-data>
 
@@ -29,6 +30,7 @@
       deltaTitle="Височина на антената"
       deltaPattern="{{PATTERN_DEPTHS_HEIGHT_DELTA}}"
       deltaPlaceholder="m.cm"
+      deltaDefaultValue=""
       (inputDataChange)="inputDataChange($event, 'depths')">
     </app-input-data>
   </app-card>
@@ -42,11 +44,11 @@
   </app-card>
 
   <div id="buttons">
-    <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="validateAndProcessData()">
+    <button *ngIf="!isLoading" type="button" class="btn btn-outline-primary" (click)="validateAndProcessData()">
       <span class="sr-only"> Пресметни </span>
     </button>
-    <button *ngIf="!isLoading" type="button" class="btn btn-warning" (click)="reloadCurrentPage()">
-      <span class="sr-only"> Изчистване </span>
+    <button *ngIf="!isLoading" type="button" class="btn btn-outline-danger" (click)="reloadCurrentPage()">
+      <span class="sr-only"> Изчисти </span>
     </button>
     <button *ngIf="isLoading" class="btn btn-info" type="button" disabled>
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
