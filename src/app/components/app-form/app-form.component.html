@@ -44,10 +44,10 @@
   </app-card>
 
   <div id="buttons">
-    <button *ngIf="!isLoading" type="button" class="btn btn-outline-primary" (click)="validateAndProcessData()">
+    <button *ngIf="!isLoading" type="button" class="btn btn-primary" (click)="validateAndProcessData()">
       <span class="sr-only"> Пресметни </span>
     </button>
-    <button *ngIf="!isLoading" type="button" class="btn btn-outline-danger" (click)="reloadCurrentPage()">
+    <button *ngIf="!isLoading" type="button" class="btn btn-warning" (click)="reloadCurrentPage()">
       <span class="sr-only"> Изчисти </span>
     </button>
     <button *ngIf="isLoading" class="btn btn-info" type="button" disabled>
