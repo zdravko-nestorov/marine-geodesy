@@ -254,7 +254,7 @@ export class GeodesyCalculatorService {
   }
 
   private findFirstDepthIndex(firstDepthIndex: number, coordinate: Coordinates): number {
-    if (firstDepthIndex || firstDepthIndex < 0) {
+    if (firstDepthIndex && firstDepthIndex >= 0) {
       return firstDepthIndex;
     }
     return this.depthsArr.findIndex(item => item.timeDiffInMillis === coordinate.timeDiffWithDeltaInMillis);
