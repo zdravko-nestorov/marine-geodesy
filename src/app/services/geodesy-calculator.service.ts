@@ -236,7 +236,7 @@ export class GeodesyCalculatorService {
 
   private calculateOutputData(): void {
     let count: any = 1;
-    let firstDepthIndex: any = 0;
+    let firstDepthIndex: any = -1;
 
     for (const coordinate of this.coordinatesArr) {
       // Find first matching depth index, based on the calculated time difference (calculated only once)
@@ -254,7 +254,10 @@ export class GeodesyCalculatorService {
   }
 
   private findFirstDepthIndex(firstDepthIndex: number, coordinate: Coordinates): number {
-    return firstDepthIndex || this.depthsArr.findIndex(item => item.timeDiffInMillis === coordinate.timeDiffWithDeltaInMillis);
+    if (firstDepthIndex || firstDepthIndex < 0) {
+      return firstDepthIndex;
+    }
+    return this.depthsArr.findIndex(item => item.timeDiffInMillis === coordinate.timeDiffWithDeltaInMillis);
   }
 
   private mapToGeodesy(count: number, coordinate: Coordinates, firstDepthIndex: number): Geodesy {
