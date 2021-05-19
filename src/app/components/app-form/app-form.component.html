@@ -1,6 +1,6 @@
 <div class="application">
   <div class="header text-center">
-    <span class="h4">Програма за синхронизиране на GPS и ехолотни измервания</span>
+    <span class="h4">Програма за синхронизиране на ГНСС и ехолотни измервания</span>
   </div>
 
   <div *ngIf="successMessage && !errorMessage"
@@ -33,7 +33,7 @@
 
     <app-input-data
       fileTitle="Файл с дълбочини *"
-      deltaTitle="Височина на антената"
+      deltaTitle="Дълбочина на потапяне на ехолотната антена"
       deltaPattern="{{PATTERN_DEPTHS_HEIGHT_DELTA}}"
       deltaPlaceholder="m.cm"
       deltaDefaultValue=""
