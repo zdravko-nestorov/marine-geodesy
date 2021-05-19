@@ -53,7 +53,7 @@ export class AppUtils {
         continue;
       }
 
-      const lineItems: string[] = line.split(AppConstants.CSV_SEPARATOR);
+      const lineItems: string[] = line.split(AppConstants.CSV_INPUT_SEPARATOR);
       processLine(lineItems);
     }
   }
@@ -82,7 +82,7 @@ export class AppUtils {
           }
           return cell;
         })
-        .join(AppConstants.CSV_SEPARATOR))
+        .join(AppConstants.CSV_OUTPUT_SEPARATOR))
       .join('\n');
   }
 

@@ -1,8 +1,9 @@
 export class AppConstants {
 
   // File information
-  public static CSV_SEPARATOR: any = '   ';
-  public static TIME_SEPARATOR: any = ':';
+  public static CSV_INPUT_SEPARATOR = '   ';
+  public static CSV_OUTPUT_SEPARATOR = ' ';
+  public static TIME_SEPARATOR = ':';
   public static CSV_MIME_TYPE = 'text/csv;charset=utf-8;';
 
   // Time difference
