@@ -12,6 +12,7 @@ import {AppConstants} from '../../constants/app-constants';
 export class AppFormComponent implements OnInit {
 
   public PATTERN_COORDINATES_CLOCK_DELTA = AppConstants.PATTERN_COORDINATES_CLOCK_DELTA;
+  public PATTERN_DEPTHS_HEIGHT_BASE = AppConstants.PATTERN_DEPTHS_HEIGHT_BASE;
   public PATTERN_DEPTHS_HEIGHT_DELTA = AppConstants.PATTERN_DEPTHS_HEIGHT_DELTA;
 
   constructor(

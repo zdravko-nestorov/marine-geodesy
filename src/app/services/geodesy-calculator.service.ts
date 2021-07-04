@@ -30,13 +30,10 @@ export class GeodesyCalculatorService {
   private geodesyArr: Geodesy[] = [];
 
   inputDataChange(inputData: InputData, type: string): void {
-    switch (type) {
-      case 'coordinates':
-        this.coordinatesData = inputData;
-        break;
-      default:
-        this.depthsData = inputData;
-        break;
+    if (type === 'coordinates') {
+      this.coordinatesData = inputData;
+    } else {
+      this.depthsData = inputData;
     }
   }
 
@@ -145,6 +142,9 @@ export class GeodesyCalculatorService {
     if (!this.validateDepthsDelta()) {
       this.errorMessage += AppConstants.ERROR_DEPTHS_HEIGHT_DELTA;
     }
+    if (!this.validateDepthsBase()) {
+      this.errorMessage += AppConstants.ERROR_DEPTHS_HEIGHT_BASE;
+    }
     this.processDepths();
   }
 
@@ -155,6 +155,11 @@ export class GeodesyCalculatorService {
   private validateDepthsDelta(): boolean {
     const depthsDelta: string = this.depthsData.delta;
     return !depthsDelta || new RegExp(AppConstants.PATTERN_DEPTHS_HEIGHT_DELTA).test(depthsDelta);
+  }
+
+  private validateDepthsBase(): boolean {
+    const depthsBase: string = this.depthsData.base;
+    return !depthsBase || new RegExp(AppConstants.PATTERN_DEPTHS_HEIGHT_BASE).test(depthsBase);
   }
 
   private processDepths(): void {
@@ -188,7 +193,8 @@ export class GeodesyCalculatorService {
     const timeDiffInMillis: number = AppUtils.timeInMillis(timeDiff);
     const height: number = +lineItems[2];
     const heightWithDelta: number = AppUtils.heightWithDelta(height, +this.depthsData.delta);
-    return new Depths(id, timeDiff, timeDiffInMillis, height, heightWithDelta);
+    const heightWithBaseAndDelta: number = AppUtils.heightWithBaseAndDelta(height, +this.depthsData.base, +this.depthsData.delta);
+    return new Depths(id, timeDiff, timeDiffInMillis, height, heightWithDelta, heightWithBaseAndDelta);
   }
 
   private emitDepthsFileProcessed(): void {
@@ -266,8 +272,8 @@ export class GeodesyCalculatorService {
     }
     const x: string = coordinate.x;
     const y: string = coordinate.y;
-    const heightWithDelta: string = this.depthsArr[firstDepthIndex].heightWithDelta.toFixed(2);
-    return new Geodesy(count, y, x, heightWithDelta);
+    const height: string = this.depthsArr[firstDepthIndex].heightWithBaseAndDelta.toFixed(2);
+    return new Geodesy(count, y, x, height);
   }
 
   private saveOutputData(): void {

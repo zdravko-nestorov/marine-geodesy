@@ -4,7 +4,11 @@ export class Coordinates {
   x: string;
   y: string;
 
-  constructor(time: string, timeDiffWithDeltaInMillis: number, x: string, y: string) {
+  constructor(time: string,
+              timeDiffWithDeltaInMillis: number,
+              x: string,
+              y: string) {
+
     this.time = time;
     this.timeDiffWithDeltaInMillis = timeDiffWithDeltaInMillis;
     this.x = x;

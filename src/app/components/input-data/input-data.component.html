@@ -1,6 +1,6 @@
 <div class="file-input-wrapper mb-3">
   <div class="row">
-    <div class="col-8">
+    <div class="col-8 my-auto">
       <div class="row">
         <div class="col-3">
           <label class="file form-label">{{fileTitle}}</label>
@@ -27,6 +27,20 @@
                  [pattern]="deltaPattern"
                  [placeholder]="deltaPlaceholder"
                  [defaultValue]="deltaDefaultValue">
+        </div>
+      </div>
+
+      <div class="row" [hidden]="baseHidden">
+        <div class="col-7">
+          <label class="form-label">{{baseTitle}}</label>
+        </div>
+        <div class="col-5">
+          <input class="form-control"
+                 required="required"
+                 (change)="handleBaseChange($event.target.value)"
+                 [pattern]="basePattern"
+                 [placeholder]="basePlaceholder"
+                 [defaultValue]="baseDefaultValue">
         </div>
       </div>
     </div>

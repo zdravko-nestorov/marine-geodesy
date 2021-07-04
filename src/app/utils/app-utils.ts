@@ -26,7 +26,12 @@ export class AppUtils {
 
   public static heightWithDelta(height: number, delta: number): number {
     delta = delta || 0;
-    return height + delta;
+    return Math.abs(height) + delta;
+  }
+
+  public static heightWithBaseAndDelta(height: number, base: number, delta: number): number {
+    base = base || 0;
+    return Math.abs(base - this.heightWithDelta(height, delta));
   }
 
   private static attachFileListeners(fileReader: FileReader, processLine: (items: string[]) => void, onSuccess: any, onError: any): void {
