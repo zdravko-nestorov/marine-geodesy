@@ -100,7 +100,7 @@ export class AppUtils {
     separator = separator || AppConstants.TIME_SEPARATOR;
     const timeParts: string[] = time.split(separator);
     return new Date(AppConstants.START_OF_DAY.getFullYear(), AppConstants.START_OF_DAY.getMonth(), AppConstants.START_OF_DAY.getDate(),
-      +timeParts[0], +timeParts[1], +timeParts[2], 0);
+      (+timeParts[0] || 0), (+timeParts[1] || 0), (+timeParts[2] || 0), 0);
   }
 
   private static timeDifferenceInMillis(date: Date, delta: string): number {
